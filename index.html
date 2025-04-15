@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech Trends</title>
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    /* Header */
+    header {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+    }
+    header h1 {
+      font-size: 2.5em;
+    }
+    /* Full-width Carousel */
+    .carousel {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      position: relative;
+      min-width: 100%;
+      flex-shrink: 0;
+    }
+    .slide img {
+      width: 100%;
+      height: 500px; /* fixed height for desktop, can adjust in media query */
+      object-fit: cover;
+      display: block;
+    }
+    /* Overlay caption styling */
+    .overlay {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 4px;
+      text-align: center;
+      color: #fff;
+    }
+    .overlay h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .overlay p {
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    /* Carousel Controls */
+    .prev,
+    .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+    }
+    .prev {
+      left: 20px;
+    }
+    .next {
+      right: 20px;
+    }
+    .prev:hover,
+    .next:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+    /* Dots Navigation */
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+    }
+    .dot {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin: 0 5px;
+      background: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .dot.active {
+      background: #717171;
+    }
+    /* Articles Section with alternating layout */
+    .articles {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    /* Make the whole article clickable */
+    .article-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .article {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      gap: 20px;
+    }
+    .article img {
+      width: 45%;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+    .article .text {
+      width: 55%;
+    }
+    .article .text h2 {
+      margin-bottom: 10px;
+      font-size: 1.8em;
+    }
+    .article .text p {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    .articles > a:nth-child(even) .article {
+      flex-direction: row-reverse;
+    }
+
+    /* Alternate layout: even articles get reversed */
+    .article:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      /* Carousel Adjustments */
+      .carousel {
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto; 
+      }
+      .slides {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        transition: transform 0.5s ease-in-out;
+      }
+      .slide {
+        position: relative;
+        min-width: 100%;
+        max-width: 100%;
+        flex-shrink: 0;
+      }
+      .slide img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+      .overlay h2 {
+        font-size: 1.6em;
+      }
+      .overlay p {
+        font-size: 1em;
+      }
+      .article {
+        flex-direction: column;
+      }
+      .articles > a .article {
+        flex-direction: column !important;
+      }
+      .articles > a .article img,
+      .articles > a .article .text {
+        width: 100% !important;
+      }
+      .article img,
+      .article .text {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .carousel {
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto; 
+      }
+      .slides {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+      .slide {
+        position: relative;
+        min-width: 100%;
+        max-width: 100%;
+        flex-shrink: 0;
+      }
+      .slide img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+      }
+      .overlay {
+        padding: 15px;
+      }
+      .overlay h2 {
+        font-size: 1.4em;
+      }
+      .overlay p {
+        font-size: 0.9em;
+        line-height: 1.4;
+      }
+      .articles {
+        padding: 0 10px;
+      }
+      .article {
+        padding: 15px;
+        gap: 15px;
+        flex-direction: column !important;
+      }
+      .article .text h2 {
+        font-size: 1.6em;
+      }
+      .article .text p {
+        font-size: 1em;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Tech Trends</h1>
+  </header>
+  
+  <!-- Carousel -->
+  <div class="carousel">
+    <div class="slides">
+      <!-- Slide 1: Innovative Gadgets -->
+      <div class="slide">
+        <img
+          src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="Innovative Gadgets"
+        />
+        <div class="overlay">
+          <h2>Innovative Gadgets</h2>
+          <p>
+            Experience the future with cutting-edge gadgets.<br />
+            Sleek designs, smart features, and breakthrough technology<br />
+            redefine everyday life.
+          </p>
+        </div>
+      </div>
+      <!-- Slide 2: AI & Robotics -->
+      <div class="slide">
+        <img
+          src="https://burhantec.com/wp-content/uploads/2017/12/hd-pics-photos-robots-stunning-best-attractive-robot-technology-desktop-background-wallpaper.jpg"
+          alt="AI & Robotics"
+        />
+        <div class="overlay">
+          <h2>AI & Robotics</h2>
+          <p>
+            Unveil the intelligence behind smart machines.<br />
+            Discover how artificial intelligence and robotics<br />
+            are shaping tomorrow.
+          </p>
+        </div>
+      </div>
+      <!-- Slide 3: Green Technology -->
+      <div class="slide">
+        <img
+          src="https://media.istockphoto.com/id/1318980755/photo/green-computing-green-technology-green-it-csr-and-it-ethics-concept.jpg?s=612x612&w=0&k=20&c=dJincI9dY10qaYaqOdne4jlbezB3FSECmqt3viNGYmg="
+          alt="Green Technology"
+        />
+        <div class="overlay">
+          <h2>Green Technology</h2>
+          <p>
+            Embrace sustainable tech innovations.<br />
+            Eco-friendly solutions that not only power our devices<br />
+            but also protect our planet.
+          </p>
+        </div>
+      </div>
+      <!-- Slide 4: Retro Tech Revival -->
+      <div class="slide">
+        <img
+          src="https://images8.alphacoders.com/941/thumb-1920-941429.jpg"
+          alt="Retro Tech Revival"
+        />
+        <div class="overlay">
+          <h2>Retro Tech Revival</h2>
+          <p>
+            Relive classic technology with a modern twist.<br />
+            A celebration of vintage design reimagined for the modern era.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Carousel controls -->
+    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    <!-- Dots navigation -->
+    <div class="dots">
+      <span class="dot active" onclick="currentSlide(0)"></span>
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div>
+  
+  <!-- Articles Section -->
+  <div class="articles">
+    <!-- Article 1: Innovative Gadgets -->
+    <a href="gadgets.html" class="article-link">
+      <div class="article">
+        <img
+          src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+          alt="Innovative Gadgets"
+        />
+        <div class="text">
+          <h2>Innovative Gadgets</h2>
+          <p>
+            Cutting-edge gadgets are transforming how we live and work. 
+            From smart wearables to interactive devices, explore the technology 
+            that brings futuristic design and functionality to your everyday routines.
+          </p>
+        </div>
+      </div>
+    </a>
+    <!-- Article 2: AI & Robotics -->
+    <a href="ai-robotics.html" class="article-link">
+      <div class="article">
+        <img
+          src="https://burhantec.com/wp-content/uploads/2017/12/hd-pics-photos-robots-stunning-best-attractive-robot-technology-desktop-background-wallpaper.jpg"
+          alt="AI & Robotics"
+        />
+        <div class="text">
+          <h2>AI & Robotics</h2>
+          <p>
+            Dive into the world of artificial intelligence and robotics.
+            Explore how smart algorithms and agile machines are driving innovation and redefining industries worldwide.
+          </p>
+        </div>
+      </div>
+    </a>
+    <!-- Article 3: Green Technology -->
+    <a href="green-tech.html" class="article-link">
+      <div class="article">
+        <img
+          src="https://media.istockphoto.com/id/1318980755/photo/green-computing-green-technology-green-it-csr-and-it-ethics-concept.jpg?s=612x612&w=0&k=20&c=dJincI9dY10qaYaqOdne4jlbezB3FSECmqt3viNGYmg="
+          alt="Green Technology"
+        />
+        <div class="text">
+          <h2>Green Technology</h2>
+          <p>
+            Green technology paves the way toward a sustainable future.
+            Learn about innovations that harness renewable energy and eco-friendly materials to create tech solutions that care for the environment.
+          </p>
+        </div>
+      </div>
+    </a>
+    <!-- Article 4: Retro Tech Revival -->
+    <a href="retro-tech.html" class="article-link">
+      <div class="article">
+        <img
+          src="https://images8.alphacoders.com/941/thumb-1920-941429.jpg"
+          alt="Retro Tech Revival"
+        />
+        <div class="text">
+          <h2>Retro Tech Revival</h2>
+          <p>
+            Retro Tech Revival celebrates classic innovations reimagined for today's world.
+            Rediscover vintage designs fused with modern functionality in this nostalgic yet forward-thinking trend.
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Tech Trends. All rights reserved.</p>
+  </footer>
+  
+  <!-- JavaScript for Carousel -->
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slides .slide");
+    const dots = document.querySelectorAll(".dot");
+    const totalSlides = slides.length;
+    
+    function showSlide(index) {
+      if (index >= totalSlides) {
+        slideIndex = 0;
+      } else if (index < 0) {
+        slideIndex = totalSlides - 1;
+      } else {
+        slideIndex = index;
+      }
+      const offset = -slideIndex * 100;
+      document.querySelector(".slides").style.transform = "translateX(" + offset + "%)";
+      updateDots();
+    }
+    
+    function updateDots() {
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === slideIndex);
+      });
+    }
+    
+    function changeSlide(n) {
+      showSlide(slideIndex + n);
+    }
+    
+    function currentSlide(n) {
+      showSlide(n);
+    }
+    
+    // Auto-cycle the slides every 5 seconds.
+    setInterval(() => {
+      showSlide(slideIndex + 1);
+    }, 5000);
+    
+    // Initialize the carousel.
+    showSlide(slideIndex);
+  </script>
+  <script id="kunato_js-js" type="module" src="https://cdn.zzazz.com/widget/tech-trends/widget.js"></script>
+</body>
+</html>
